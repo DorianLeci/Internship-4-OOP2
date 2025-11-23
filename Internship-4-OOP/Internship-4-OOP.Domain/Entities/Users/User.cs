@@ -1,6 +1,7 @@
 using Internship_4_OOP.Domain.Common.Model;
 using Internship_4_OOP.Domain.Common.Validation;
 using Internship_4_OOP.Domain.Common.Validation.ValidationItems;
+using Internship_4_OOP.Domain.Persistence.User;
 
 namespace Internship_4_OOP.Domain.Entities.Users;
 
@@ -18,13 +19,16 @@ public class User
     public string? Website;
     public string Password{get; set;}
 
-    public async Task<Result<bool>> Create()
+    public async Task<Result<bool>> Create(IUserRepository userRepository)
     {
         var validationResult = await CreateOrUpdateValidation();
         if (validationResult.HasErrors)
         {
             return new Result<bool>(false,validationResult);
         }
+
+        await userRepository.InsertAsync(this);
+        return new Result<bool>(true, validationResult);
     }
 
     public async Task<ValidationResult> CreateOrUpdateValidation()
