@@ -11,4 +11,9 @@
       <ProjectReference Include="..\Internship-4-OOP.Domain\Internship-4-OOP.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.1.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.22" />
+    </ItemGroup>
+
 </Project>
