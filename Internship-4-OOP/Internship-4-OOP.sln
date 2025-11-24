@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internship-4-OOP.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internship-4-OOP.Application", "Internship-4-OOP.Application\Internship-4-OOP.Application.csproj", "{A34D1A25-8CC6-4A85-A719-DBB8B6766DE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internship-4-OOP.Infrastructure", "Internship-4-OOP.Infrastructure\Internship-4-OOP.Infrastructure.csproj", "{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,6 +18,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C2EE3263-418F-4F7E-8455-31C9A5DEDED1} = {7EC68847-B385-417B-A211-7035FE873F31}
 		{A34D1A25-8CC6-4A85-A719-DBB8B6766DE8} = {7EC68847-B385-417B-A211-7035FE873F31}
+		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8} = {7EC68847-B385-417B-A211-7035FE873F31}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C2EE3263-418F-4F7E-8455-31C9A5DEDED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,5 +29,9 @@ Global
 		{A34D1A25-8CC6-4A85-A719-DBB8B6766DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A34D1A25-8CC6-4A85-A719-DBB8B6766DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A34D1A25-8CC6-4A85-A719-DBB8B6766DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
