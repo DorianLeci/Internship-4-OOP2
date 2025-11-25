@@ -1,6 +1,8 @@
-namespace Internship_4_OOP.Domain.Persistence.User;
+using Internship_4_OOP.Domain.Persistence.Common;
 
-public interface IUserRepository
+namespace Internship_4_OOP.Domain.Entities.Users;
+
+public interface IUserRepository:IRepository<User,int>
 {
     Task<User> GetById(int id);
     Task<bool>ExistsByEmailAsync(string email);

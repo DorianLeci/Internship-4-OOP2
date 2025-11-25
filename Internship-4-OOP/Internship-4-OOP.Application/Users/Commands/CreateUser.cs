@@ -22,7 +22,7 @@ public record CreateUserCommand: IRequest<Result<int,DomainError>>
     public bool IsActive = true;
 }
 
-public class CreateUserCommandHandler(IApplicationDbContext context,IUserRepository userRepository) : IRequestHandler<CreateUserCommand,Result<int,DomainError>>
+public class CreateUserCommandHandler(IUserRepository userRepository) : IRequestHandler<CreateUserCommand,Result<int,DomainError>>
 {
     public async Task<Result<int,DomainError>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
@@ -38,7 +38,7 @@ public class CreateUserCommandHandler(IApplicationDbContext context,IUserReposit
 
         if (await userRepository.ExistsUserWithinDistanceAsync(request.GeoLatitude, request.GeoLongitude, 3))
         {
-            return Result<int, DomainError>.Failure(DomainError.Conflict("Već postoji korisnik s istim emailom."));
+            return Result<int, DomainError>.Failure(DomainError.Conflict("Postoji korisnik unutar 3 kilometra od trenutno unesenog."));
         }
         
         var newUser = new User(request.Id,request.Name,request.Username,request.Email,request.AddressStreet,request.AddressCity
@@ -46,10 +46,9 @@ public class CreateUserCommandHandler(IApplicationDbContext context,IUserReposit
 
         newUser.AddDomainEvent(new UserCreatedEvent(newUser));
         
-        context.Users.Add(newUser);
-        var id=await context.SaveChangesAsync(cancellationToken);
+        await userRepository.InsertAsync(newUser);
 
-        return Result<int,DomainError>.Success(id);
+        return Result<int,DomainError>.Success(request.Id);
 
     }
 }

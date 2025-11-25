@@ -22,9 +22,9 @@ public class User:BaseEntity
     
     public bool IsActive = true;
 
-    public User(int id,string name,string username,string email,string addressStreet,string addressCity,decimal geoLatitude,decimal geoLongitude,string? website)
+    public User(int id,string name,string username,string email,string addressStreet,string addressCity,decimal geoLatitude,decimal geoLongitude,string? website):
+        base(name,username)
     {
-        Name = name;
         Username = username;
         Email = email;
         AddressStreet = addressStreet;
@@ -32,30 +32,29 @@ public class User:BaseEntity
         GeoLatitude = geoLatitude;
         GeoLatitude = geoLatitude;
         Website = website;
-        CreatedAt = DateTime.Now;
-        UpdatedAt = DateTime.Now;
+
     }
 
 
-    public async Task<Result<bool>> Create(IUserRepository userRepository)
-    {
-        var validationResult = await CreateOrUpdateValidation();
-        if (validationResult.HasErrors)
-        {
-            return new Result<bool>(false,validationResult);
-        }
-        
-        AddDomainEvent(new UserCreatedEvent(this));
-        await userRepository.InsertAsync(this);
-        return new Result<bool>(true, validationResult);
-    }
-
-    public async Task<ValidationResult> CreateOrUpdateValidation()
-    {
-        var validationResult = new ValidationResult();
-        if (Name.Length > NameMaxLength)
-            validationResult.AddValidationItem(ValidationItems.User.NameMaxLength);
-        
-        return validationResult;
-    }
+    // public async Task<Result<bool>> Create(IUserRepository userRepository)
+    // {
+    //     var validationResult = await CreateOrUpdateValidation();
+    //     if (validationResult.HasErrors)
+    //     {
+    //         return new Result<bool>(false,validationResult);
+    //     }
+    //     
+    //     AddDomainEvent(new UserCreatedEvent(this));
+    //     await userRepository.InsertAsync(this);
+    //     return new Result<bool>(true, validationResult);
+    // }
+    //
+    // public async Task<ValidationResult> CreateOrUpdateValidation()
+    // {
+    //     var validationResult = new ValidationResult();
+    //     if (Name.Length > NameMaxLength)
+    //         validationResult.AddValidationItem(ValidationItems.User.NameMaxLength);
+    //     
+    //     return validationResult;
+    // }
 }

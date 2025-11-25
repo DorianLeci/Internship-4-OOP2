@@ -44,23 +44,9 @@ public static class FluentValidationExtensions
                 }
             })
             .WithMessage($"{displayName} je krivog formata.")
-            .WithSeverity(Severity.Error)
-
-            .MustAsync(async (email, cancellationToken) =>
-                !await repository.ExistsByEmailAsync(email.ToLowerInvariant()))
-            .WithMessage($"{displayName} mora biti unikatan.")
             .WithSeverity(Severity.Error);
     }
-
-    public static IRuleBuilderOptions<T, string> UsernameValidator<T>(
-        this IRuleBuilder<T, string> ruleBuilder, string displayName, IUserRepository repository)
-    {
-        return ruleBuilder
-            .MustAsync(async (username,cancellationToken) => !await repository.ExistsByEmailAsync(username))
-            .WithMessage($"{displayName} mora biti unikatan.")
-            .WithSeverity(Severity.Error);
-    }
-
+    
     public static IRuleBuilderOptions<T, decimal> GeoCoordValidator<T>(
         this IRuleBuilder<T, decimal> ruleBuilder, string displayName,decimal lowerBound,decimal upperBound)
     {

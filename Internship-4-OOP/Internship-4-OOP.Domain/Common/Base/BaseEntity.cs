@@ -7,7 +7,14 @@ public abstract class BaseEntity
     public DateTime UpdatedAt{get; protected set; }
     public DateTime? DeletedAt { get; init; } = null;
     public string Name{get; set;}
-    
+
+    protected BaseEntity(string name)
+    {
+        Name = name;
+        CreatedAt = DateTime.Now;
+        UpdatedAt = DateTime.Now;        
+    }
+
     private readonly List<BaseEvent> _domainEvents = [];
     
     public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
