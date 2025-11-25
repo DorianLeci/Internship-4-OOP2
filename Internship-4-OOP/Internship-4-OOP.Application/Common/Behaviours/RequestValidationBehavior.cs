@@ -13,13 +13,13 @@ public class RequestValidationBehavior<TRequest, TResponse>(IReadOnlyList<IValid
     {
         if (!_validators.Any()) return await next();
         
-        cancellationToken.ThrowIfCancellationRequested();
+        // cancellationToken.ThrowIfCancellationRequested();
         
         var context = new ValidationContext<TRequest>(request);
         var results = await Task.WhenAll(_validators.Select(validator => validator.ValidateAsync(context)));
 
         var failures = results.Where(result => !result.IsValid).SelectMany(result => result.Errors).ToList();
-        cancellationToken.ThrowIfCancellationRequested();
+        // cancellationToken.ThrowIfCancellationRequested();
         
         if (failures.Count != 0)
             throw new ValidationException("Validacija unosa neuspješna",failures);

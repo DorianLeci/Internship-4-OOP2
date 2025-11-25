@@ -24,22 +24,30 @@ public record CreateUserCommand: IRequest<Result<int,DomainError>>
 
 public class CreateUserCommandHandler(IApplicationDbContext context,IUserRepository userRepository) : IRequestHandler<CreateUserCommand,Result<int,DomainError>>
 {
-    private readonly IUserRepository _userRepository = userRepository;
-    private readonly IApplicationDbContext _context = context;
-
     public async Task<Result<int,DomainError>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        if (await _userRepository.ExistsByEmailAsync(request.Email))
+        if (await userRepository.ExistsByUsernameAsync(request.Username))
+        {
+            return Result<int, DomainError>.Failure(
+                DomainError.Conflict("Već postoji korisnik s istim korisničkim imenom."));
+        }
+        if (await userRepository.ExistsByEmailAsync(request.Email))
         {
             return Result<int, DomainError>.Failure(DomainError.Conflict("Već postoji korisnik s istim emailom."));
         }
+
+        if (await userRepository.ExistsUserWithinDistanceAsync(request.GeoLatitude, request.GeoLongitude, 3))
+        {
+            return Result<int, DomainError>.Failure(DomainError.Conflict("Već postoji korisnik s istim emailom."));
+        }
+        
         var newUser = new User(request.Id,request.Name,request.Username,request.Email,request.AddressStreet,request.AddressCity
         ,request.GeoLatitude,request.GeoLongitude,request.Website);
 
         newUser.AddDomainEvent(new UserCreatedEvent(newUser));
         
-        _context.Users.Add(newUser);
-        var id=await _context.SaveChangesAsync(cancellationToken);
+        context.Users.Add(newUser);
+        var id=await context.SaveChangesAsync(cancellationToken);
 
         return Result<int,DomainError>.Success(id);
 
