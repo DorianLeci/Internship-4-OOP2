@@ -19,7 +19,7 @@ public record CreateUserCommand: IRequest<int>
     public bool IsActive = true;
 }
 
-public class CreateUserCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateUserCommand, int>
+public class CreateUserCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateUserCommand,int>
 {
     private readonly IApplicationDbContext _context = context;
 
