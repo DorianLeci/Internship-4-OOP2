@@ -1,4 +1,5 @@
 using Internship_4_OOP.Domain.Common.Model;
+using Internship_4_OOP.Domain.Errors;
 using Internship_4_OOP.Domain.Persistence.Common;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,12 +26,14 @@ public class Repository<TEntity, TId>(DbContext dbContext,DbSet<TEntity> dbSet) 
         dbSet.Update(entity);
     }
 
-    public async Task DeleteAsync(TId id)
+    public async Task<TEntity?> DeleteAsync(TId id)
     {
         var entity= await dbSet.FindAsync(id);
-        if(entity != null){
-            dbSet.Remove(entity);
-        }
+        if (entity == null)
+            return null;
+        
+        dbSet.Remove(entity);
+        return entity;
     }
 
     public void Delete(TEntity? entity)

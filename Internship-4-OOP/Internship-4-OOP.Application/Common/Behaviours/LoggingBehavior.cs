@@ -18,7 +18,7 @@ public class LoggingBehavior<TRequest> : IRequestPreProcessor<TRequest> where TR
     {
         var nameOfRequest=typeof(TRequest).Name;
         
-        _logger.LogInformation("Request info:{nameOfRequest} {@_user}", nameOfRequest, request);
+        _logger.LogInformation("Request info:{nameOfRequest} {@_item}", nameOfRequest, request);
     }
 }
 

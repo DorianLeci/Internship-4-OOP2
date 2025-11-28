@@ -1,10 +1,12 @@
 using Internship_4_OOP.Domain.Common.Base;
-using Internship_4_OOP.Domain.Common.Validation.ValidationItems;
 using Internship_4_OOP.Domain.Entities.Users;
 
 namespace Internship_4_OOP.Domain.Events;
 
-public class UserCreatedEvent(User user) : BaseEvent
+public class UserCreatedEvent: BaseEvent<User>
 {
-    public User User { get; } = user;
+    public UserCreatedEvent(int version,string eventType,int aggregateId,DateTimeOffset timestamp,User user)
+        : base(version,eventType, aggregateId, timestamp, user)
+
+    { }
 }

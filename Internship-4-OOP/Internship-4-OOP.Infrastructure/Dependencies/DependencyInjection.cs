@@ -1,5 +1,7 @@
 using FluentValidation;
 using Internship_4_OOP.Application.Users.Commands;
+using Internship_4_OOP.Application.Users.Commands.CreateUser;
+using Internship_4_OOP.Domain.Entities.Users;
 using Internship_4_OOP.Domain.Persistence.User;
 using Internship_4_OOP.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,5 +1,6 @@
 using System.Net.Mail;
 using Internship_4_OOP.Application.Users.Commands;
+using Internship_4_OOP.Domain.Entities.Users;
 using Internship_4_OOP.Domain.Persistence.User;
 
 namespace Internship_4_OOP.Application.RuleBuilder;
@@ -28,7 +29,7 @@ public static class FluentValidationExtensions
     }
     
     public static IRuleBuilderOptions<T,string> EmailValidator<T>
-        (this IRuleBuilder<T,string> ruleBuilder,string displayName,IUserRepository repository)
+        (this IRuleBuilder<T,string> ruleBuilder,string displayName)
     {
         return ruleBuilder
             .Must(email =>

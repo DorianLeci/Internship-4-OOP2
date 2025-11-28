@@ -1,9 +1,8 @@
 using FluentValidation;
-using FluentValidation.Validators;
 using Internship_4_OOP.Application.RuleBuilder;
-using Internship_4_OOP.Domain.Persistence.User;
+using Internship_4_OOP.Domain.Entities.Users;
 
-namespace Internship_4_OOP.Application.Users.Commands;
+namespace Internship_4_OOP.Application.Users.Commands.CreateUser;
 
 public class CreateUserCommandValidator: AbstractValidator<CreateUserCommand>
 {
@@ -23,10 +22,13 @@ public class CreateUserCommandValidator: AbstractValidator<CreateUserCommand>
 
         RuleFor(request => request.Username).Required(usernameReq)
             .DependentRules(() => RuleFor(request => request.Username).MaxLength(usernameReq, 30));
-        
-        RuleFor(request => request.Email).Required(emailVal).
-            DependentRules(() =>
-                RuleFor(request => request.Email).MaxLength(emailVal, 150));
+
+        RuleFor(request => request.Email).Required(emailVal).DependentRules(() =>
+        {
+            RuleFor(request => request.Email).MaxLength(emailVal, 150);
+            RuleFor(request => request.Email).EmailValidator(emailVal);
+        });
+
 
         RuleFor(request => request.AddressStreet).Required(adressStreetVal)
             .DependentRules(() => RuleFor(request => request.AddressStreet).MaxLength(adressStreetVal, 150));

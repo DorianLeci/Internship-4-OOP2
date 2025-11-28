@@ -1,13 +1,9 @@
 using Internship_4_OOP.Domain.Common.Base;
-using Internship_4_OOP.Domain.Common.Model;
-using Internship_4_OOP.Domain.Common.Validation;
-using Internship_4_OOP.Domain.Common.Validation.ValidationItems;
-using Internship_4_OOP.Domain.Events;
-using Internship_4_OOP.Domain.Persistence.User;
 
 namespace Internship_4_OOP.Domain.Entities.Users;
+using Company;
 
-public class User:BaseEntity
+public class User:BaseEntity<User>
 {
     public const int NameMaxLength = 100;
     
@@ -21,9 +17,11 @@ public class User:BaseEntity
     private string _password = Guid.NewGuid().ToString();
     
     public bool IsActive = true;
+    
+    public int CompanyId{get; set;}
 
     public User(int id,string name,string username,string email,string addressStreet,string addressCity,decimal geoLatitude,decimal geoLongitude,string? website):
-        base(name,username)
+        base(id,name)
     {
         Username = username;
         Email = email;
@@ -32,29 +30,6 @@ public class User:BaseEntity
         GeoLatitude = geoLatitude;
         GeoLatitude = geoLatitude;
         Website = website;
-
     }
-
-
-    // public async Task<Result<bool>> Create(IUserRepository userRepository)
-    // {
-    //     var validationResult = await CreateOrUpdateValidation();
-    //     if (validationResult.HasErrors)
-    //     {
-    //         return new Result<bool>(false,validationResult);
-    //     }
-    //     
-    //     AddDomainEvent(new UserCreatedEvent(this));
-    //     await userRepository.InsertAsync(this);
-    //     return new Result<bool>(true, validationResult);
-    // }
-    //
-    // public async Task<ValidationResult> CreateOrUpdateValidation()
-    // {
-    //     var validationResult = new ValidationResult();
-    //     if (Name.Length > NameMaxLength)
-    //         validationResult.AddValidationItem(ValidationItems.User.NameMaxLength);
-    //     
-    //     return validationResult;
-    // }
+    
 }

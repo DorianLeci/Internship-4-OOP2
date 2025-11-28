@@ -2,6 +2,7 @@ using System.Reflection;
 using FluentValidation;
 using Internship_4_OOP.Application.Common.Behaviours;
 using Internship_4_OOP.Application.Users.Commands;
+using Internship_4_OOP.Application.Users.Commands.CreateUser;
 using Microsoft.Extensions.DependencyInjection;
 namespace Internship_4_OOP.Application.Dependencies;
 

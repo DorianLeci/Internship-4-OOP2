@@ -3,7 +3,10 @@ using Internship_4_OOP.Domain.Entities.Users;
 
 namespace Internship_4_OOP.Domain.Events;
 
-public class UserDeletedEvent(User user) : BaseEvent
+public class UserDeletedEvent:BaseEvent<User>
 {
-    public User User { get; } = user;
+    public UserDeletedEvent(int version,string eventType,int aggregateId,DateTimeOffset timestamp,User user)
+        : base(version,eventType, aggregateId, timestamp, user)
+
+    { }
 }

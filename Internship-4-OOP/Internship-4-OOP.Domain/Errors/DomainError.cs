@@ -1,4 +1,5 @@
 using FluentValidation.Results;
+using Internship_4_OOP.Domain.Common.Model;
 
 namespace Internship_4_OOP.Domain.Errors;
 
@@ -21,4 +22,7 @@ public record DomainError
 
     public static DomainError Unexpected(string? message)
         => new(message ?? "Neočekivana pogreška se dogodila.",Domain.Errors.ErrorType.Unexecpected);
+    
+    public static DomainError NotFound(string? message)=>
+    new(message ?? "Podatak kojeg si zatražio ne postoji.", ErrorType.NotFound);
 }
