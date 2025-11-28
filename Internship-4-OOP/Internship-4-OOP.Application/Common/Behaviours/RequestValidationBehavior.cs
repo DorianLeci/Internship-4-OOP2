@@ -1,5 +1,7 @@
 using MediatR;
 using FluentValidation;
+using ValidationException = Internship_4_OOP.Domain.Common.Exceptions.ValidationException;
+
 namespace Internship_4_OOP.Application.Common.Behaviours;
 
 public class RequestValidationBehavior<TRequest, TResponse>(IReadOnlyList<IValidator<TRequest>> validators)
@@ -18,7 +20,7 @@ public class RequestValidationBehavior<TRequest, TResponse>(IReadOnlyList<IValid
         var context = new ValidationContext<TRequest>(request);
         var results = await Task.WhenAll(_validators.Select(validator => validator.ValidateAsync(context)));
 
-        var failures = results.Where(result => !result.IsValid).SelectMany(result => result.Errors).ToList();
+        var failures = results.Where(result => !result.IsValid).SelectMany(result => result.Errors).Select(x=>x.ErrorMessage).ToList();
         // cancellationToken.ThrowIfCancellationRequested();
         
         if (failures.Count != 0)

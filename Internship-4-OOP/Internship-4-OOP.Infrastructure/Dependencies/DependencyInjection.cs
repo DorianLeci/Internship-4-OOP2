@@ -27,11 +27,16 @@ public static class DependencyInjection
 
     private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("UserDB");
-        if (string.IsNullOrEmpty(connectionString))
-        {
-            throw new ArgumentNullException(nameof(connectionString));
-        }
-        services.AddDbContext<ApplicationDbContext>(options =>options.UseNpgsql(connectionString));
+        var userDbConnectionString = configuration.GetConnectionString("UserDB");
+        if (string.IsNullOrEmpty(userDbConnectionString))
+            throw new ArgumentNullException(nameof(userDbConnectionString));
+        
+        var companyDbConnectionString = configuration.GetConnectionString("CompanyDB");
+        if (string.IsNullOrEmpty(companyDbConnectionString))
+            throw new ArgumentNullException(nameof(companyDbConnectionString));
+        
+        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(userDbConnectionString));
+        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(companyDbConnectionString));
+        
     }
-    {
+}

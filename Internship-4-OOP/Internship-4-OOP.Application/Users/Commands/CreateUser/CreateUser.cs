@@ -1,3 +1,4 @@
+using Internship_4_OOP.Application.DTO;
 using Internship_4_OOP.Domain.Common.Model;
 using Internship_4_OOP.Domain.Entities.Users;
 using Internship_4_OOP.Domain.Errors;
@@ -7,7 +8,6 @@ using MediatR;
 namespace Internship_4_OOP.Application.Users.Commands.CreateUser;
 
 public record CreateUserCommand(
-    int Id,
     string Name,
     string Username,
     string Email,
@@ -21,6 +21,11 @@ public record CreateUserCommand(
 {
     public string Password { get; } = Guid.NewGuid().ToString();
     public bool IsActive { get; } = true;
+
+    public static CreateUserCommand FromDto(CreateUserDto dto)
+    {
+        return new CreateUserCommand(dto.Name,dto.Username,dto.Email,dto.AddressStreet,dto.AddressCity,dto.GeoLatitude,dto.GeoLongitude,dto.Website);
+    }
 }
 
 
@@ -44,7 +49,7 @@ public class CreateUserCommandHandler(IUserRepository userRepository,Mediator me
             return Result<int, DomainError>.Failure(DomainError.Conflict("Postoji korisnik unutar 3 kilometra od trenutno unesenog."));
         }
         
-        var newUser = new User(request.Id,request.Name,request.Username,request.Email,request.AddressStreet,request.AddressCity,request.GeoLatitude,request.GeoLongitude,request.Website);
+        var newUser = new User(3,request.Name,request.Username,request.Email,request.AddressStreet,request.AddressCity,request.GeoLatitude,request.GeoLongitude,request.Website);
 
         newUser.AddDomainEvent(new UserCreatedEvent(1,"UserCreatedEvent",newUser.Id,DateTimeOffset.Now,newUser));
         

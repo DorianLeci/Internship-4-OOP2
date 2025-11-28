@@ -7,8 +7,8 @@ public record DomainError
 {
     public string? ErrorMessage { get; init; }
     public ErrorType ErrorType { get; init; }
-    public List<ValidationFailure>? Errors { get; init; }
-    private DomainError(string? message, ErrorType errorType, List<ValidationFailure>? errors = null)
+    public List<String>? Errors { get; init; }
+    private DomainError(string? message, ErrorType errorType, List<String>? errors = null)
     {
         ErrorMessage = message;
         ErrorType = errorType;
@@ -17,7 +17,7 @@ public record DomainError
     public static DomainError Conflict(string ? message)=>
         new(message ?? "Dogodio se konflikt s podatcima u bazi podataka.", ErrorType.Conflict);
     
-    public static DomainError Validation(string ? message,List<ValidationFailure>? errors=null) =>
+    public static DomainError Validation(string ? message,List<String>? errors=null) =>
         new (message?? "Neuspješna validacija.",ErrorType.Validation,errors);
 
     public static DomainError Unexpected(string? message)

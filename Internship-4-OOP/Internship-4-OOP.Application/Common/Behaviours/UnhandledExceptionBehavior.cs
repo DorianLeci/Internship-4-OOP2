@@ -3,6 +3,7 @@ using Internship_4_OOP.Domain.Common.Model;
 using Internship_4_OOP.Domain.Errors;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using ValidationException = Internship_4_OOP.Domain.Common.Exceptions.ValidationException;
 
 namespace Internship_4_OOP.Application.Common.Behaviours;
 
