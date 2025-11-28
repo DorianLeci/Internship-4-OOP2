@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internship-4-OOP.Applicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internship-4-OOP.Infrastructure", "Internship-4-OOP.Infrastructure\Internship-4-OOP.Infrastructure.csproj", "{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internship-4-OOP.Api", "Internship-4-OOP.Api\Internship-4-OOP.Api.csproj", "{EEE3716F-37CE-4A59-885B-34403739DC6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,7 @@ Global
 		{C2EE3263-418F-4F7E-8455-31C9A5DEDED1} = {7EC68847-B385-417B-A211-7035FE873F31}
 		{A34D1A25-8CC6-4A85-A719-DBB8B6766DE8} = {7EC68847-B385-417B-A211-7035FE873F31}
 		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8} = {7EC68847-B385-417B-A211-7035FE873F31}
+		{EEE3716F-37CE-4A59-885B-34403739DC6F} = {7EC68847-B385-417B-A211-7035FE873F31}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C2EE3263-418F-4F7E-8455-31C9A5DEDED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,5 +36,9 @@ Global
 		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3A11C6E-AC83-4CED-9C18-3D7E96452FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEE3716F-37CE-4A59-885B-34403739DC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE3716F-37CE-4A59-885B-34403739DC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE3716F-37CE-4A59-885B-34403739DC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE3716F-37CE-4A59-885B-34403739DC6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
