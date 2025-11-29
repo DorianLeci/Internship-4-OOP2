@@ -2,12 +2,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Internship_4_OOP.Domain.Common.Base;
 
-public abstract class BaseEntity<T>(string name):IAuditableEntity
+public abstract class BaseEntity<T> :IAuditableEntity
 {
     public int Id { get; init; }
-    public string Name{get; set;} = name;
+    public string Name{get; set;}
 
     private readonly List<BaseEvent<T>> _domainEvents = new List<BaseEvent<T>>();
+
+    public BaseEntity()
+    { }
+    protected BaseEntity(string name)
+    {
+        Name = name;
+    }
+
     public DateTime CreatedAt{get; set; }
     
     public DateTime UpdatedAt{get; set; }

@@ -29,8 +29,8 @@ public static class DependencyInjection
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICompanyRepository, CompanyRepository>();
-        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<UserDbContext>());
-        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<CompanyDbContext>());
+        services.AddScoped<IUserDbContext>(provider => provider.GetRequiredService<UserDbContext>());
+        services.AddScoped<ICompanyDbContext>(provider => provider.GetRequiredService<CompanyDbContext>());
     }
 
     private static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)

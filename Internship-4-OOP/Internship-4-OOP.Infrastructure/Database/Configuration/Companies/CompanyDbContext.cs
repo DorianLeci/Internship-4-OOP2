@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Internship_4_OOP.Infrastructure.Database.Configuration.Companies;
 
-public class CompanyDbContext:DbContext,IApplicationDbContext
+public class CompanyDbContext:DbContext,ICompanyDbContext
 {
     public CompanyDbContext(DbContextOptions<CompanyDbContext> options) : base(options)
     {

@@ -27,6 +27,15 @@ public static class FluentValidationExtensions
             .WithMessage($"{displayName} ne smije imati više od {maxLength} znakova.")
             .WithSeverity(Severity.Error);
     }
+    public static IRuleBuilderOptions<T, string> MaxLengthForWebsite<T>
+        (this IRuleBuilder<T,string> ruleBuilder,string displayName,int maxLength)
+    {
+        return ruleBuilder
+            .MaximumLength(maxLength)
+            .When(x => x != null)
+            .WithMessage($"{displayName} ne smije imati više od {maxLength} znakova.")
+            .WithSeverity(Severity.Error);
+    }
     
     public static IRuleBuilderOptions<T,string> EmailValidator<T>
         (this IRuleBuilder<T,string> ruleBuilder,string displayName)

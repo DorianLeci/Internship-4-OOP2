@@ -30,7 +30,7 @@ public record CreateUserCommand(
 }
 
 
-public class CreateUserCommandHandler(IUserRepository userRepository,IMediator mediator,IApplicationDbContext dbContext) : IRequestHandler<CreateUserCommand,Result<int,DomainError>>
+public class CreateUserCommandHandler(IUserRepository userRepository,IMediator mediator,IUserDbContext dbContext) : IRequestHandler<CreateUserCommand,Result<int,DomainError>>
 {
 
     public async Task<Result<int,DomainError>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -52,12 +52,12 @@ public class CreateUserCommandHandler(IUserRepository userRepository,IMediator m
         
         var newUser = new User(request.Name,request.Username,request.Email,request.AddressStreet,request.AddressCity,request.GeoLatitude,request.GeoLongitude,request.Website,request.CompanyId);
         
+        await userRepository.InsertAsync(newUser);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        
         newUser.AddDomainEvent(new UserCreatedEvent(1,"UserCreatedEvent",newUser.Id,DateTimeOffset.Now,newUser));
         
         await mediator.Publish(newUser.DomainEvents.Last());
-        
-        await userRepository.InsertAsync(newUser);
-        await dbContext.SaveChangesAsync(cancellationToken);
 
         return Result<int,DomainError>.Success(newUser.Id);
 

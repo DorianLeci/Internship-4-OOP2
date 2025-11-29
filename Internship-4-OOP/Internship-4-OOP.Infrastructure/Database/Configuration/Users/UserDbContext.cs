@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Internship_4_OOP.Infrastructure.Database.Configuration.Users;
 
-public class UserDbContext:DbContext,IApplicationDbContext
+public class UserDbContext:DbContext,IUserDbContext
 {
     public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
     {

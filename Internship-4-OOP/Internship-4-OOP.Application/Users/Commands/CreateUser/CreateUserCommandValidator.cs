@@ -42,7 +42,7 @@ public class CreateUserCommandValidator: AbstractValidator<CreateUserCommand>
         RuleFor(request => request.GeoLongitude).Required(geoLongVal)
             .DependentRules(() => RuleFor(request => request.GeoLongitude).GeoCoordValidator(geoLongVal, -180m, 180m));
 
-        RuleFor(request => request.Website).WebsiteUrlValidator(webSiteVal);
+        RuleFor(request => request.Website).MaxLengthForWebsite(webSiteVal,100).WebsiteUrlValidator(webSiteVal);
 
     }
 

@@ -23,7 +23,7 @@ public record CreateCompanyCommand(
     }
 }
 
-public class CreateCompanyCommandHandler(ICompanyRepository companyRepository,IMediator mediator,IApplicationDbContext dbContext) : IRequestHandler<CreateCompanyCommand,Result<int,DomainError>>
+public class CreateCompanyCommandHandler(ICompanyRepository companyRepository,IMediator mediator,ICompanyDbContext dbContext) : IRequestHandler<CreateCompanyCommand,Result<int,DomainError>>
 {
 
     public async Task<Result<int,DomainError>> Handle(CreateCompanyCommand request, CancellationToken cancellationToken)
