@@ -5,34 +5,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Internship_4_OOP.Infrastructure.Repositories;
 
-public class Repository<TEntity, TId>(DbContext dbContext,DbSet<TEntity> dbSet) : IRepository<TEntity, TId>
+public class Repository<TEntity, TId>: IRepository<TEntity, TId>
     where TEntity : class
 {
-    private readonly DbContext _dbContext = dbContext;
+    protected readonly DbContext Context;
+    protected readonly DbSet<TEntity> DbSet;
+    
+    public Repository(DbContext context)
+    {
+        Context = context;
+        DbSet = context.Set<TEntity>();
+        
+    }
 
     public async Task<GetAllResponse<TEntity>> GetAsync()
     {
-        var entities = await dbSet.ToListAsync();
+        var entities = await DbSet.ToListAsync();
         return new GetAllResponse<TEntity>(entities);
     }
 
     public async Task InsertAsync(TEntity entity)
     {
-        await dbSet.AddAsync(entity);
+        await DbSet.AddAsync(entity);
     }
 
     public void Update(TEntity entity)
     {
-        dbSet.Update(entity);
+        DbSet.Update(entity);
     }
 
     public async Task<TEntity?> DeleteAsync(TId id)
     {
-        var entity= await dbSet.FindAsync(id);
+        var entity= await DbSet.FindAsync(id);
         if (entity == null)
             return null;
         
-        dbSet.Remove(entity);
+        DbSet.Remove(entity);
         return entity;
     }
 
@@ -40,7 +48,7 @@ public class Repository<TEntity, TId>(DbContext dbContext,DbSet<TEntity> dbSet) 
     {
         if (entity != null)
         {
-            dbSet.Remove(entity);
+            DbSet.Remove(entity);
         }
     }
 }

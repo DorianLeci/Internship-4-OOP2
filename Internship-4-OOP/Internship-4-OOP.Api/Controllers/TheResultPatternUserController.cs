@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Internship_4_OOP.Api.Controllers;
 
-public class TheResultPatternUserController(Mediator mediator) : ControllerBase
+[ApiController]
+[Route("api/users")]
+public class TheResultPatternUserController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -16,6 +18,6 @@ public class TheResultPatternUserController(Mediator mediator) : ControllerBase
         var result = await mediator.Send(CreateUserCommand.FromDto(dto));
         if (result.IsFailure)
             return BadRequest(result.Error?.Errors);
-        
+        return Ok(result.Value);
     }
 }

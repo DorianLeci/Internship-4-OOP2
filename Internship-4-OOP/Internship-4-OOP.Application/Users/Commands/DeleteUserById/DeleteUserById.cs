@@ -3,6 +3,7 @@ using Internship_4_OOP.Domain.Common.Model;
 using Internship_4_OOP.Domain.Entities.Users;
 using Internship_4_OOP.Domain.Errors;
 using Internship_4_OOP.Domain.Events;
+using Internship_4_OOP.Domain.Persistence.User;
 using MediatR;
 
 namespace Internship_4_OOP.Application.Users.Commands.DeleteUserById;
@@ -11,7 +12,7 @@ public record DeleteUserByIdCommand(int Id) : IRequest<Result<int, DomainError>>
 
 
     
-    public class DeleteUserByIdCommandHandler(IUserRepository repository,Mediator mediator) : IRequestHandler<DeleteUserByIdCommand, Result<int, DomainError>>
+    public class DeleteUserByIdCommandHandler(IUserRepository repository,IMediator mediator) : IRequestHandler<DeleteUserByIdCommand, Result<int, DomainError>>
     {
         public async Task<Result<int, DomainError>> Handle(DeleteUserByIdCommand request,
             CancellationToken cancellationToken)

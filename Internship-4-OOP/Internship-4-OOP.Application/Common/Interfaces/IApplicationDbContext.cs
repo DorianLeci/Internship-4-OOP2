@@ -6,6 +6,5 @@ namespace Internship_4_OOP.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    DbSet<User> Users { get; set; }
-    DbSet<Company> Companies { get; set; }
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

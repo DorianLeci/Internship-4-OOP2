@@ -4,7 +4,7 @@ namespace Internship_4_OOP.Domain.Entities.Company;
 
 public class Company:BaseEntity<Company>
 {
-    public Company(int id, string name) : base(id, name){}
+    public Company(int id, string name) : base(name){}
     
     
 }

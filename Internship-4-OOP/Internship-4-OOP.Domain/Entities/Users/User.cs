@@ -16,12 +16,14 @@ public class User:BaseEntity<User>
     public string? Website;
     private string _password = Guid.NewGuid().ToString();
     
+    public string Password => _password;
+
     public bool IsActive = true;
     
     public int CompanyId{get; set;}
 
-    public User(int id,string name,string username,string email,string addressStreet,string addressCity,decimal geoLatitude,decimal geoLongitude,string? website):
-        base(id,name)
+    public User(string name,string username,string email,string addressStreet,string addressCity,decimal geoLatitude,decimal geoLongitude,string? website):
+        base(name)
     {
         Username = username;
         Email = email;

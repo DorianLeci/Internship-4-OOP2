@@ -6,12 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Internship_4_OOP.Infrastructure.Database;
 
-public sealed class ApplicationDbContext : DbContext,IApplicationDbContext
+public class ApplicationDbContext : DbContext,IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     { }
-    public DbSet<User> Users { get; set; }
-    public DbSet<Company> Companies { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

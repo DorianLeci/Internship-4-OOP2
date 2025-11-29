@@ -1,8 +1,8 @@
 namespace Internship_4_OOP.Domain.Common.Base;
 
-public abstract class BaseEntity<T>(int id, string name):IAuditableEntity
+public abstract class BaseEntity<T>(string name):IAuditableEntity
 {
-    public int Id { get; init; } = id;
+    public int Id { get; init; }
     public DateTime CreatedAt{get; protected set; }
     public DateTime UpdatedAt{get; protected set; }
     public DateTime? DeletedAt { get; protected set; } = null;
