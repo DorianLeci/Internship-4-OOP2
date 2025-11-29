@@ -1,10 +1,8 @@
 using Internship_4_OOP.Application.Common.Interfaces;
 using Internship_4_OOP.Domain.Common.Base;
-using Internship_4_OOP.Domain.Entities.Company;
-using Internship_4_OOP.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 
-namespace Internship_4_OOP.Infrastructure.Database;
+namespace Internship_4_OOP.Infrastructure.Database.Configuration;
 
 public class ApplicationDbContext : DbContext,IApplicationDbContext
 {

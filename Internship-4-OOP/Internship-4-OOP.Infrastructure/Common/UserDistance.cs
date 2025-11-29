@@ -13,10 +13,12 @@ public static class UserDistance
         var dlng = lng2 - lng1;
         var dlat = lat2 - lat1;
 
-        var ans = Math.Pow(Math.Sin((double)dlat / 2), 2) + Math.Cos((double)lat1) * Math.Cos((double)lat2) *
+        var preAnswer = Math.Pow(Math.Sin((double)dlat / 2), 2) + Math.Cos((double)lat1) * Math.Cos((double)lat2) *
             Math.Pow(Math.Sin((double)dlng / 2), 2);
 
-        return ans*earthRadius;
+        var ans = 2 * Math.Asin(Math.Sqrt(preAnswer));
+        return earthRadius * ans;
+
     }
 
     private static decimal ToRadians(decimal degrees)

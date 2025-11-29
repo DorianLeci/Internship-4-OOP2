@@ -21,7 +21,6 @@ public static class DependencyInjection
                 cfg.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
             });    
         services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
-        services.AddTransient(typeof(INotificationHandler<>), typeof(DomainEventLogger<>));
 
     }
 }

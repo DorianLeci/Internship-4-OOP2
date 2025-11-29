@@ -5,7 +5,9 @@ namespace Internship_4_OOP.Domain.Common.Base;
 public abstract class BaseEntity<T>(string name):IAuditableEntity
 {
     public int Id { get; init; }
-    
+    public string Name{get; set;} = name;
+
+    private readonly List<BaseEvent<T>> _domainEvents = new List<BaseEvent<T>>();
     public DateTime CreatedAt{get; protected set; }
     
     public DateTime UpdatedAt{get; protected set; }
@@ -27,10 +29,7 @@ public abstract class BaseEntity<T>(string name):IAuditableEntity
     {
         DeletedAt=DateTime.Now;
     }
-
-    public string Name{get; set;} = name;
-
-    private readonly List<BaseEvent<T>> _domainEvents = [];
+    
     
     [NotMapped]
     public IReadOnlyCollection<BaseEvent<T>> DomainEvents => _domainEvents.AsReadOnly();

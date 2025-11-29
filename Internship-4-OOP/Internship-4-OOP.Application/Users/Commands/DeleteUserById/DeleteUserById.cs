@@ -1,8 +1,8 @@
 using Internship_4_OOP.Application.Common.Interfaces;
+using Internship_4_OOP.Domain.Common.Events.User;
 using Internship_4_OOP.Domain.Common.Model;
 using Internship_4_OOP.Domain.Entities.Users;
 using Internship_4_OOP.Domain.Errors;
-using Internship_4_OOP.Domain.Events;
 using Internship_4_OOP.Domain.Persistence.User;
 using MediatR;
 
