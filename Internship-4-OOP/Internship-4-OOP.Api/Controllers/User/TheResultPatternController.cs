@@ -1,6 +1,7 @@
 using Internship_4_OOP.Application.DTO;
 using Internship_4_OOP.Application.DTO.UserDto;
 using Internship_4_OOP.Application.Users.Commands.CreateUser;
+using Internship_4_OOP.Application.Users.Commands.DeactivateUser;
 using Internship_4_OOP.Application.Users.Commands.DeleteUserById;
 using Internship_4_OOP.Application.Users.Commands.GetAllUsers;
 using Internship_4_OOP.Application.Users.Commands.GetUserById;
@@ -113,6 +114,7 @@ public class TheResultPatternController(IMediator mediator,ExternalUsersService 
     [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
 
     public async Task<IActionResult> UpdateUserAsync([FromRoute] int id,[FromBody] UpdateUserDto dto)
     {
@@ -131,6 +133,21 @@ public class TheResultPatternController(IMediator mediator,ExternalUsersService 
 
     }
     
+    [HttpPut("deactivate/{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+    public async Task<IActionResult> DeactivateUserAsync([FromRoute] int id)
+    {
+        var command = new DeactivateUserCommand(id);
+        var result=await mediator.Send(command);
+
+        if (result.IsFailure)
+            return NotFound(result.Error);
+
+        return Ok(new { Id = result.Value });
+
+    }
 
 
 }

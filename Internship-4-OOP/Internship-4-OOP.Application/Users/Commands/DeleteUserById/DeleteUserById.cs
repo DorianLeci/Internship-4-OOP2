@@ -23,7 +23,7 @@ public record DeleteUserByIdCommand(int Id) : IRequest<Result<int, DomainError>>
             
             await dbContext.SaveChangesAsync(cancellationToken);
             
-            deleteUser.AddDomainEvent(new UserDeletedEvent(3,"UserDeletedEvent",deleteUser.Id,DateTimeOffset.Now,deleteUser));
+            deleteUser.AddDomainEvent(new UserDeletedEvent(4,"UserDeletedEvent",deleteUser.Id,DateTimeOffset.Now,deleteUser));
             await mediator.Publish(deleteUser.DomainEvents.Last());
             
             return  Result<int, DomainError>.Success(deleteUser.Id);
