@@ -9,7 +9,7 @@ namespace Internship_4_OOP.Application.Users.Commands.DeactivateUser;
 
 public record DeactivateUserCommand(int Id) : IRequest<Result<int, IDomainError>>;
 
-public class UpdateUserCommandHandler(
+public class DeactivateUserCommandHandler(
     IUserRepository userRepository,
     IMediator mediator,
     IUserDbContext dbContext) : IRequestHandler<DeactivateUserCommand, Result<int, IDomainError>>
@@ -21,10 +21,13 @@ public class UpdateUserCommandHandler(
         if (user==null)
             return Result<int,IDomainError>.Failure(DomainError.NotFound("Korisnik s unesenim id-om nije pronađen"));
         
+        if(!user.IsActive)
+            return Result<int,IDomainError>.Failure(DomainError.Conflict("Korisnik je već deaktiviran"));
+        
         user.IsActive = false;
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        user.AddDomainEvent(new UserCreatedEvent(3, "UserDeactivatedEvent", user.Id, DateTimeOffset.Now, user));
+        user.AddDomainEvent(new UserDeactivatedEvent(3, "UserDeactivatedEvent", user.Id, DateTimeOffset.Now, user));
 
         await mediator.Publish(user.DomainEvents.Last());
 
