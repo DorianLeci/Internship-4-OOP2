@@ -3,8 +3,10 @@ using FluentValidation;
 using Internship_4_OOP.Application.Common.Behaviours;
 using Internship_4_OOP.Application.Companies.Commands.CreateCompany;
 using Internship_4_OOP.Application.Events;
+using Internship_4_OOP.Application.Users;
 using Internship_4_OOP.Application.Users.Commands;
 using Internship_4_OOP.Application.Users.Commands.CreateUser;
+using Internship_4_OOP.Application.Users.Commands.GetUserById;
 using Internship_4_OOP.Domain.Common.Events;
 using Internship_4_OOP.Domain.Entities.Company;
 using Internship_4_OOP.Domain.Entities.Users;
@@ -20,14 +22,19 @@ public static class DependencyInjection
             cfg =>
             {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                cfg.RegisterServicesFromAssemblyContaining<GetUserByIdQueryHandler>();
                 cfg.AddOpenRequestPreProcessor(typeof(LoggingBehavior<>));
                 cfg.AddOpenBehavior(typeof(UnhandledExceptionBehavior<,>));
                 cfg.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
             });    
         services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
         services.AddValidatorsFromAssemblyContaining<CreateCompanyCommandValidator>();
-       
 
+        services.AddAutoMapper(cfg =>
+        {
+            cfg.AddMaps(typeof(UserProfile).Assembly);
+        });
 
+        
     }
 }

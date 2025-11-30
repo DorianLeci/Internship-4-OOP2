@@ -1,16 +1,14 @@
-using FluentValidation;
+
 using Internship_4_OOP.Application.Common.Interfaces;
-using Internship_4_OOP.Application.Users.Commands.CreateUser;
-using Internship_4_OOP.Application.Users.Commands.DeleteUserById;
+using Internship_4_OOP.Domain.Entities.Company;
 using Internship_4_OOP.Domain.Entities.Users;
 using Internship_4_OOP.Domain.Persistence.Company;
 using Internship_4_OOP.Domain.Persistence.User;
-using Internship_4_OOP.Infrastructure.Database;
 using Internship_4_OOP.Infrastructure.Database.Configuration.Companies;
 using Internship_4_OOP.Infrastructure.Database.Configuration.Users;
+using Internship_4_OOP.Infrastructure.Manager;
 using Internship_4_OOP.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +25,12 @@ public static class DependencyInjection
 
     private static void AddServices(this IServiceCollection services)
     {
+        services.AddScoped<IDapperManager<User>>(sp =>
+            new UserDapperManager(sp.GetRequiredService<IConfiguration>().GetConnectionString("UserDB")!));
+
+        services.AddScoped<IDapperManager<Company>>(sp =>
+            new CompanyDapperManager(sp.GetRequiredService<IConfiguration>().GetConnectionString("CompanyDB")!));
+        
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICompanyRepository, CompanyRepository>();
         services.AddScoped<IUserDbContext>(provider => provider.GetRequiredService<UserDbContext>());

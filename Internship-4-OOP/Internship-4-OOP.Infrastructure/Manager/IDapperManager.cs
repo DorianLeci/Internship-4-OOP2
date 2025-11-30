@@ -1,8 +1,8 @@
 namespace Internship_4_OOP.Infrastructure.Manager;
 
-public interface IDapperManager
+public interface IDapperManager<TEntity> where TEntity : class
 {
-    Task<IReadOnlyList<TEntity>> QueryAsync<TEntity>(string sql,object ?param=null) where TEntity : class;
-    Task<TEntity?> QuerySingleAsync<TEntity>(string sql, object? param = null);
+    Task<IReadOnlyList<TEntity>> QueryAsync(string sql, object? param = null);
+    Task<TEntity?> QuerySingleAsync(string sql, object? param = null);
     Task ExecuteAsync(string sql, object? param = null);
 }

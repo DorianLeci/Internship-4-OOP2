@@ -3,15 +3,29 @@ using Internship_4_OOP.Domain.Entities.Users;
 using Internship_4_OOP.Domain.Persistence.User;
 using Internship_4_OOP.Infrastructure.Common;
 using Internship_4_OOP.Infrastructure.Database.Configuration.Users;
+using Internship_4_OOP.Infrastructure.Manager;
 using Microsoft.EntityFrameworkCore;
 
 namespace Internship_4_OOP.Infrastructure.Repositories;
 
-public class UserRepository(UserDbContext context) : Repository<User, int>(context), IUserRepository
+public class UserRepository(UserDbContext context,IDapperManager<User> dapperManager) : Repository<User, int>(context,dapperManager), IUserRepository
 {
-    public Task<User> GetById(int id)
+    public async Task<User?> GetById(int id)
     {
-        throw new NotImplementedException();
+        string sql = @"
+    SELECT
+        name AS Name,
+        username,
+        email,
+        address_street,
+        address_city,
+        geo_lat,
+        geo_lng,
+        website
+    FROM Users
+    WHERE id = @Id";
+        
+        return await DapperManager.QuerySingleAsync(sql,new { Id = id });
     }
 
     public async Task<bool> ExistsByEmailAsync(string email)

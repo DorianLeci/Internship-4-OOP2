@@ -3,15 +3,13 @@ using Npgsql;
 
 namespace Internship_4_OOP.Infrastructure.Manager;
 
-internal sealed class DapperManager(string connectionString) : IDapperManager
+public class DapperManager<TEntity>(string connectionString) : IDapperManager<TEntity> where TEntity : class
 {
-    private readonly string _connectionString = connectionString;
-
     private NpgsqlConnection CreateConnection()
     {
-        return new NpgsqlConnection(_connectionString);
+        return new NpgsqlConnection(connectionString);
     }
-    public async Task<IReadOnlyList<TEntity>> QueryAsync<TEntity>(string sql, object? param = null) where TEntity : class
+    public async Task<IReadOnlyList<TEntity>> QueryAsync(string sql, object? param = null) 
     { 
         using var connection = CreateConnection();
         await connection.OpenAsync();
@@ -20,12 +18,12 @@ internal sealed class DapperManager(string connectionString) : IDapperManager
         return result.ToList();
     }
 
-    public async Task<TEntity?> QuerySingleAsync<TEntity>(string sql, object? param = null)
+    public async Task<TEntity?> QuerySingleAsync(string sql, object? param = null)
     {
         using var connection = CreateConnection();
         await connection.OpenAsync();
 
-        var result = await connection.QuerySingleAsync<TEntity>(sql, param);
+        var result = await connection.QuerySingleOrDefaultAsync<TEntity>(sql, param);
         return result;
     }
 

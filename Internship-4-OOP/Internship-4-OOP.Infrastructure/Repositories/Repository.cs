@@ -1,22 +1,19 @@
 using Internship_4_OOP.Domain.Common.Model;
 using Internship_4_OOP.Domain.Errors;
 using Internship_4_OOP.Domain.Persistence.Common;
+using Internship_4_OOP.Infrastructure.Manager;
 using Microsoft.EntityFrameworkCore;
 
 namespace Internship_4_OOP.Infrastructure.Repositories;
 
-public class Repository<TEntity, TId>: IRepository<TEntity, TId>
+public class Repository<TEntity, TId>(DbContext context, IDapperManager<TEntity> dapperManager) : IRepository<TEntity, TId>
     where TEntity : class
 {
-    protected readonly DbContext Context;
-    protected readonly DbSet<TEntity> DbSet;
+    protected readonly DbContext Context = context;
     
-    public Repository(DbContext context)
-    {
-        Context = context;
-        DbSet = context.Set<TEntity>();
-        
-    }
+    protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
+    
+    protected readonly IDapperManager<TEntity> DapperManager = dapperManager;
 
     public async Task<GetAllResponse<TEntity>> GetAsync()
     {

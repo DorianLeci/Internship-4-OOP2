@@ -14,6 +14,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Dapper.FluentMap">
+        <HintPath>..\..\..\..\.nuget\packages\dapper.fluentmap\2.0.0\lib\netstandard2.0\Dapper.FluentMap.dll</HintPath>
+      </Reference>
       <Reference Include="FluentValidation">
         <HintPath>..\..\..\..\.nuget\packages\fluentvalidation\12.1.0\lib\net8.0\FluentValidation.dll</HintPath>
       </Reference>

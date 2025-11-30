@@ -22,7 +22,6 @@ public record CreateUserCommand(
 ) : IRequest<Result<int, DomainError>>
 
 {
-    
     public static CreateUserCommand FromDto(CreateUserDto dto)
     {
         return new CreateUserCommand(dto.Name,dto.Username,dto.Email,dto.AddressStreet,dto.AddressCity,dto.GeoLatitude,dto.GeoLongitude,dto.Website,dto.CompanyId);

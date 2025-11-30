@@ -14,17 +14,21 @@ public class User : BaseEntity<User>
     public string AddressCity{get; set;}
     public decimal GeoLatitude{get; set;}
     public decimal GeoLongitude{get; set;}
-    public string? Website;
+    public string? Website { get; set; }
     
     private string _password = Guid.NewGuid().ToString();
     
     public string Password => _password;
 
-    public bool IsActive = true;
+    public bool IsActive { get; set; } = true;
+    
+    [NotMapped]
+    public int CompanyId{get; set;}
+    
     public User()
     { }
     public User(string name, string username, string email, string addressStreet, string addressCity, decimal geoLatitude, decimal geoLongitude, string? website,
-        int? companyId) : base(name)
+        int companyId) : base(name)
     {
         Username = username;
         Email = email;
@@ -35,7 +39,5 @@ public class User : BaseEntity<User>
         Website = website;
         CompanyId = companyId;
     }
-
-    [NotMapped]
-    public int? CompanyId{get; set;}
+    
 }

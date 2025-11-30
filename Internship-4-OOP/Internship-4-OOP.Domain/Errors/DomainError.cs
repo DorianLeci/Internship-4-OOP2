@@ -3,11 +3,11 @@ using Internship_4_OOP.Domain.Common.Model;
 
 namespace Internship_4_OOP.Domain.Errors;
 
-public record DomainError
+public record DomainError:IDomainError
 {
     public string? ErrorMessage { get; init; }
     public ErrorType ErrorType { get; init; }
-    public List<String>? Errors { get; init; }
+    public List<string>? Errors { get; init; }
     private DomainError(string? message, ErrorType errorType, List<String>? errors = null)
     {
         ErrorMessage = message;
