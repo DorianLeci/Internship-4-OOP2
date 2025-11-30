@@ -20,6 +20,12 @@ public class UserRepository(UserDbContext context,IDapperManager<User> dapperMan
         return await DapperManager.QuerySingleAsync(sql,new { Id = id });
     }
 
+    public async Task<IReadOnlyList<User>> GetAllAsync()
+    {
+        const string sql = "SELECT* FROM Users";
+        return await DapperManager.QueryAsync(sql);
+    }
+
     public async Task<User?> GetByUsernameAndPasswordAsync(string username,string password)
     {
         const string sql = "SELECT* FROM Users WHERE username = @username AND password = @password";

@@ -16,7 +16,7 @@ public record GetUserByIdQuery(int Id) : IQuery<GetUserDto>
     }
 }
     
-    public class GetUserByIdQueryHandler(IUserRepository repository,IMapper mapper) : IQueryHandler<GetUserByIdQuery, GetUserDto>
+    public class GetUserByIdQueryHandler(IUserRepository repository) : IQueryHandler<GetUserByIdQuery, GetUserDto>
     {
         public async Task<Result<GetUserDto, IDomainError>> Handle(GetUserByIdQuery request,
             CancellationToken cancellationToken)

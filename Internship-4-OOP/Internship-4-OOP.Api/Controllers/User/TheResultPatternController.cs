@@ -1,6 +1,7 @@
 using Internship_4_OOP.Application.DTO;
 using Internship_4_OOP.Application.Users.Commands.CreateUser;
 using Internship_4_OOP.Application.Users.Commands.DeleteUserById;
+using Internship_4_OOP.Application.Users.Commands.GetAllUsers;
 using Internship_4_OOP.Application.Users.Commands.GetUserById;
 using Internship_4_OOP.Application.Users.Commands.ImportExternal;
 using Internship_4_OOP.Application.Users.Mappers;
@@ -28,6 +29,22 @@ public class TheResultPatternController(IMediator mediator,ExternalUsersService 
         
         return Ok(result.Value);
 
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+    public async Task<IActionResult> GetAllUsersAync()
+    {
+        var command = new GetAllUsersQuery();
+        var result = await mediator.Send(command);
+        
+        if(result.IsFailure)
+            return NotFound(result.Error);
+        
+        return Ok(result.Value);
+        
     }
     
     [HttpPost]

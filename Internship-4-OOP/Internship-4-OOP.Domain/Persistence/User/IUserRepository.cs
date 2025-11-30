@@ -6,6 +6,8 @@ public interface IUserRepository:IRepository<Entities.Users.User,int>
 {
     Task<Entities.Users.User?> GetByIdAsync(int id);
     
+    Task<IReadOnlyList<Entities.Users.User>> GetAllAsync();
+    
     Task<bool>ExistsByEmailAsync(string email);
     Task<bool>ExistsByUsernameAsync(string username);
     Task<bool> ExistsUserWithinDistanceAsync(decimal lat, decimal lng, double minDistance);
