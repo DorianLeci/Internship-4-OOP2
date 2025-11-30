@@ -18,7 +18,7 @@ public record CreateUserCommand(
     decimal GeoLatitude,
     decimal GeoLongitude,
     string? Website,
-    int? CompanyId
+    int CompanyId
 ) : IRequest<Result<int, DomainError>>
 
 {

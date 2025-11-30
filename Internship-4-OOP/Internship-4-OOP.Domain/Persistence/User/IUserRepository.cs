@@ -9,4 +9,5 @@ public interface IUserRepository:IRepository<Entities.Users.User,int>
     Task<bool>ExistsByUsernameAsync(string username);
     Task<bool> ExistsUserWithinDistanceAsync(decimal lat, decimal lng, double minDistance);
     
+    
 }

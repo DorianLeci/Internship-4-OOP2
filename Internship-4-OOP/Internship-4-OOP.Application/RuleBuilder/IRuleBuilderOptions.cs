@@ -1,6 +1,7 @@
 using System.Net.Mail;
 using Internship_4_OOP.Application.Users.Commands;
 using Internship_4_OOP.Domain.Entities.Users;
+using Internship_4_OOP.Domain.Persistence.Company;
 using Internship_4_OOP.Domain.Persistence.User;
 
 namespace Internship_4_OOP.Application.RuleBuilder;
@@ -27,8 +28,8 @@ public static class FluentValidationExtensions
             .WithMessage($"{displayName} ne smije imati više od {maxLength} znakova.")
             .WithSeverity(Severity.Error);
     }
-    public static IRuleBuilderOptions<T, string> MaxLengthForWebsite<T>
-        (this IRuleBuilder<T,string> ruleBuilder,string displayName,int maxLength)
+    public static IRuleBuilderOptions<T, string?> MaxLengthForWebsite<T>
+        (this IRuleBuilder<T,string?> ruleBuilder,string displayName,int maxLength)
     {
         return ruleBuilder
             .MaximumLength(maxLength)
@@ -71,6 +72,15 @@ public static class FluentValidationExtensions
         return ruleBuilder
             .Must(url=>string.IsNullOrEmpty(url) || Uri.TryCreate(url, UriKind.Absolute,out _))
             .WithMessage($"{websiteUrl} mora biti ispravan.")
+            .WithSeverity(Severity.Error);
+    }
+
+    public static IRuleBuilderOptions<T, int> CompanyIdValidator<T>
+        (this IRuleBuilder<T, int> ruleBuilder,ICompanyRepository repository)
+    {
+        return ruleBuilder
+            .MustAsync(async (id, cancellationToken) => await repository.CompanyIdExistsAsync(id))
+            .WithMessage("Kompanija s danim id-om ne postoji.")
             .WithSeverity(Severity.Error);
     }
 } 

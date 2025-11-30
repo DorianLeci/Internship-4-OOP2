@@ -5,6 +5,9 @@ using Internship_4_OOP.Application.Companies.Commands.CreateCompany;
 using Internship_4_OOP.Application.Events;
 using Internship_4_OOP.Application.Users.Commands;
 using Internship_4_OOP.Application.Users.Commands.CreateUser;
+using Internship_4_OOP.Domain.Common.Events;
+using Internship_4_OOP.Domain.Entities.Company;
+using Internship_4_OOP.Domain.Entities.Users;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 namespace Internship_4_OOP.Application.Dependencies;
@@ -23,6 +26,8 @@ public static class DependencyInjection
             });    
         services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
         services.AddValidatorsFromAssemblyContaining<CreateCompanyCommandValidator>();
+       
+
 
     }
 }

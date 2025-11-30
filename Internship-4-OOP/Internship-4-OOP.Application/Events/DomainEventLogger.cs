@@ -1,4 +1,3 @@
-
 using Internship_4_OOP.Domain.Common.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -16,8 +15,8 @@ public class DomainEventLogger<TEvent>(ILogger<TEvent> logger) : INotificationHa
             notification.EventType,
             notification.AggregateId,
             notification.Timestamp
-            );
+        );
 
-       return Task.CompletedTask;
+        return Task.CompletedTask;
     }
 }

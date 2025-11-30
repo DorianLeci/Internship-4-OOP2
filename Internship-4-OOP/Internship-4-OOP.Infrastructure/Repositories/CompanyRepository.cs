@@ -12,4 +12,8 @@ public class CompanyRepository(CompanyDbContext context):Repository<Company,int>
     {
         return await DbSet.AnyAsync(company=>company.Name==name);        
     }
+    public async Task<bool> CompanyIdExistsAsync(int companyId)
+    {
+        return await context.Companies.AnyAsync(c => c.Id == companyId);
+    }
 }

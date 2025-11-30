@@ -6,4 +6,5 @@ namespace Internship_4_OOP.Domain.Persistence.Company;
 public interface ICompanyRepository:IRepository<Entities.Company.Company,int>
 {
     Task<bool>ExistsByNameAsync(string name);
+    Task<bool> CompanyIdExistsAsync(int companyId);
 }

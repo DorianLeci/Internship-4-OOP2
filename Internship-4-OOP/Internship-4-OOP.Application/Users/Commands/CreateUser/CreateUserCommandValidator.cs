@@ -1,13 +1,14 @@
 using FluentValidation;
 using Internship_4_OOP.Application.RuleBuilder;
 using Internship_4_OOP.Domain.Entities.Users;
+using Internship_4_OOP.Domain.Persistence.Company;
 using Internship_4_OOP.Domain.Persistence.User;
 
 namespace Internship_4_OOP.Application.Users.Commands.CreateUser;
 
 public class CreateUserCommandValidator: AbstractValidator<CreateUserCommand>
 {
-    public CreateUserCommandValidator(IUserRepository repository)
+    public CreateUserCommandValidator(IUserRepository userRepository,ICompanyRepository companyRepository)
     {
         const string nameReq = "Ime korisnika";
         const string usernameReq = "Korisničko ime ";
@@ -17,6 +18,7 @@ public class CreateUserCommandValidator: AbstractValidator<CreateUserCommand>
         const string geoLatVal = "Geografska širina";
         const string geoLongVal = "Geografska dužina";
         const string webSiteVal = "Web stranica";
+        const string companyVal = "Id kompanije";
 
         RuleFor(request => request.Name).Required(nameReq).DependentRules(()=>RuleFor(request=>request.Name).MaxLength(nameReq, 100));
 
@@ -43,6 +45,9 @@ public class CreateUserCommandValidator: AbstractValidator<CreateUserCommand>
             .DependentRules(() => RuleFor(request => request.GeoLongitude).GeoCoordValidator(geoLongVal, -180m, 180m));
 
         RuleFor(request => request.Website).MaxLengthForWebsite(webSiteVal,100).WebsiteUrlValidator(webSiteVal);
+        
+        RuleFor(request=>request.CompanyId).Required(companyVal)
+            .DependentRules(()=>RuleFor(request=>request.CompanyId).CompanyIdValidator(companyRepository));
 
     }
 
