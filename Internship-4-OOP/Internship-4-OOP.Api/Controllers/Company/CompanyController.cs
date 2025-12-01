@@ -1,4 +1,5 @@
 using Internship_4_OOP.Application.Companies.Commands.CreateCompany;
+using Internship_4_OOP.Application.Companies.Commands.DeleteCompany;
 using Internship_4_OOP.Application.Companies.Commands.GetCompany;
 using Internship_4_OOP.Application.Companies.Commands.UpdateCompany;
 using Internship_4_OOP.Application.DTO;
@@ -84,5 +85,22 @@ public class CompanyController(IMediator mediator) : ControllerBase
             };
 
         return Ok(new { Id = result.Value });
+    }
+    
+    [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteCompanyAsync([FromRoute] int id,[FromQuery] string username,[FromQuery] string password)
+    {
+        Console.WriteLine($"{username} {password}");
+        var command=DeleteCompanyCommand.FromRouteAndQuery(id,username,password);
+        Console.WriteLine($"{command.Username} {command.Password}");
+        var result = await mediator.Send(command);
+
+        if (result.IsFailure)
+            return NotFound(result.Error);
+        
+        return Ok(new {Id=result.Value});
+        
     }
 }

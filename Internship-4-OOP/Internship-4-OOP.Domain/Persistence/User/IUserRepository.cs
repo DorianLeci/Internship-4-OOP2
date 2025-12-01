@@ -17,6 +17,5 @@ public interface IUserRepository:IRepository<Entities.Users.User,int>
     Task<Entities.Users.User?> GetByUsernameAndPasswordAsync(string username,string password);
 
     Task<Entities.Users.User?> GetByIdAsyncWithCore(int id);
-
-
+    
 }

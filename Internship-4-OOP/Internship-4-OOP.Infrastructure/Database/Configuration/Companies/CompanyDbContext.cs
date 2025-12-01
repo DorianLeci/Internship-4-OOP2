@@ -25,7 +25,6 @@ public class CompanyDbContext:DbContext,ICompanyDbContext
             
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .ValueGeneratedOnAddOrUpdate()
                 .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Save);
         });
 

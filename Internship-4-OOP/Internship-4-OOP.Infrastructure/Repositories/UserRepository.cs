@@ -37,8 +37,7 @@ public class UserRepository(UserDbContext context,IDapperManager<User> dapperMan
     {
         return await DbSet.FirstOrDefaultAsync(user=>user.Id==id);
     }
-
-
+    
     public async Task<bool> ExistsByEmailAsync(string email,int? excludeId = null)
     {
         return await DbSet.AnyAsync(user => user.Email == email && (!excludeId.HasValue || user.Id != excludeId));
