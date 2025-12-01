@@ -25,7 +25,7 @@ If you are on windows start program with
 $Env:ASPNETCORE_ENVIRONMENT="Development"
 dotnet run
 ```
-After starting program type ```http://localhost:5245/swagger/index.html``` to open SwaggerUI where you can test various API end-points.
+After starting program type ```http://localhost:5245/swagger/index.html``` (or other number-whatever port os gives you) to open SwaggerUI where you can test various API end-points.
 
 
 
