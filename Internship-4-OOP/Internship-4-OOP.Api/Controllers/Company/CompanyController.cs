@@ -1,5 +1,6 @@
 using Internship_4_OOP.Application.Companies.Commands.CreateCompany;
 using Internship_4_OOP.Application.Companies.Commands.GetCompany;
+using Internship_4_OOP.Application.Companies.Commands.UpdateCompany;
 using Internship_4_OOP.Application.DTO;
 using Internship_4_OOP.Application.DTO.CompanyDto;
 using Internship_4_OOP.Application.Users.Commands.CreateUser;
@@ -63,5 +64,25 @@ public class CompanyController(IMediator mediator) : ControllerBase
         if (result.IsFailure)
             return BadRequest(result.Error);
         return Created(string.Empty,new {result.Value,dto});
+    }
+    
+    [HttpPut("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> UpdateAsync([FromRoute] int id,[FromBody] UpdateCompanyDto dto)
+    {
+        Console.WriteLine($"Request CompanyId: {id}");
+        var result = await mediator.Send(UpdateCompanyCommand.FromRouteAndDto(id,dto));
+
+        if (result.IsFailure)
+            return result.Error!.ErrorType switch
+            {
+                ErrorType.NotFound => NotFound(result.Error),
+                ErrorType.Conflict => Conflict(result.Error),
+                _ => BadRequest(result.Error)
+            };
+
+        return Ok(new { Id = result.Value });
     }
 }

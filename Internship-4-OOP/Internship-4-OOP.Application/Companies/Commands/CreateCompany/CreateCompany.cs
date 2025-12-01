@@ -1,3 +1,4 @@
+using Internship_4_OOP.Application.Abstractions;
 using Internship_4_OOP.Application.Common.Interfaces;
 using Internship_4_OOP.Application.DTO;
 using Internship_4_OOP.Application.DTO.CompanyDto;
@@ -12,9 +13,7 @@ using MediatR;
 
 namespace Internship_4_OOP.Application.Companies.Commands.CreateCompany;
 
-public record CreateCompanyCommand(
-    string Name
-) : IRequest<Result<int, IDomainError>>
+public record CreateCompanyCommand(string CompanyName ) : IRequest<Result<int, IDomainError>>,ICompanyRequest
 
 {
     
@@ -29,13 +28,13 @@ public class CreateCompanyCommandHandler(ICompanyRepository companyRepository,IM
 
     public async Task<Result<int,IDomainError>> Handle(CreateCompanyCommand request, CancellationToken cancellationToken)
     {
-        if (await companyRepository.ExistsByNameAsync(request.Name))
+        if (await companyRepository.ExistsByNameAsync(request.CompanyName))
         {
             return Result<int, IDomainError>.Failure(
                 DomainError.Conflict("Već postoji kompanija s istim imenom."));
         }
 
-        var newCompany = new Company(request.Name);
+        var newCompany = new Company(request.CompanyName);
         
         await companyRepository.InsertAsync(newCompany);
         await dbContext.SaveChangesAsync(cancellationToken);
